@@ -25,20 +25,26 @@ module.exports = {
         host: 'localhost',
         port: port,
         https: false,
-        hotOnly: false,
+        hotOnly: true,
         open: true, //配置自动启动浏览器
         overlay:{
           warnings:false,
           errors:true,
         },
         proxy: { // 配置多个代理(配置一个 proxy: 'http://localhost:4000' )
-            '/api': {
+            '/api/v1': {
                 // target: '<url>',
-                target: 'http://localhost:8000/api',
+                target: 'http://39.96.221.167:8000/api/v1',
+                changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api/v1' : ''
                 },
             },
+        },
+        watchOptions: {
+            poll: 1000, //开启polling,或者指定毫秒为单位进行轮询，1000
+            ignored: /node_modules/, //忽略文件夹
+            aggregateTimeout: 300 //当第一个文件更改，会在重新构建前增加延迟。这个选项允许 webpack 将这段时间内进行的任何其他更改都聚合到一次重新构建里。以毫秒为单位：
         }
     },
     pluginOptions: { // 第三方插件配置

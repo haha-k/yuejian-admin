@@ -58,6 +58,7 @@
 </template>
 <script>
 import { validUsername } from "@/utils/validate";
+import axios from 'axios'
 
 export default {
   name: "login",
@@ -78,8 +79,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "111111"
+        username: "haha1",
+        password: "xxxxxx"
       },
       loginRules: {
         username: [
@@ -122,13 +123,19 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
+          // axios.post('/api/v1/login',this.loginForm).then(function(response){
+          //   console.log(response);
+          // }).catch(function(error){
+          //   console.log(error);
+          // })
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
-              // this.$router.push({
-
-              // })
+              this.$router.push({
+                path: this.redirect || '/',
+              })
               this.loading = false;
+              console.log("xxxxxxxxxxx")
             })
             .catch(() => {
               this.loading = false;
@@ -147,7 +154,14 @@ export default {
       this.$refs.password.focus();
     }
   },
-  components: {}
+  components: {},
+  // watch: {
+  //   $route : {
+  //     handler: function (route){
+  //       this.redirect = route.query;
+  //     }
+  //   }
+  // };
 };
 </script>
 <style lang="scss">
@@ -195,8 +209,8 @@ $light_gray: #fff;
 }
 </style>
 <style lang="scss" scoped>
-$bg: rgb(245, 91, 91);
-$dark_gray: #ffffff;
+$bg: rgb(154, 184, 121);
+$dark_gray: #889aa4;
 $light_gray: #eee;
 
 .login-container {

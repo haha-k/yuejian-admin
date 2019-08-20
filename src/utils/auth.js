@@ -1,9 +1,10 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'Admin-Token'
+const TokenKey = 'JWT'
 
 export function getToken(){
     return Cookies.get(TokenKey);
+
 }
 
 export function setToken(token) {
