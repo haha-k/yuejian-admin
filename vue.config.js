@@ -22,7 +22,7 @@ module.exports = {
         modules: false // 启用 CSS modules for all css / pre-processor files.
     },
     devServer: { // 环境配置
-        host: 'localhost',
+        host: '127.0.0.1',
         port: port,
         https: false,
         hotOnly: true,
@@ -32,9 +32,17 @@ module.exports = {
           errors:true,
         },
         proxy: { // 配置多个代理(配置一个 proxy: 'http://localhost:4000' )
+            // '/api/v1': {
+            //     // target: '<url>',
+            //     target: 'http://39.96.221.167:8000/api/v1',
+            //     changeOrigin: true,
+            //     pathRewrite: {
+            //         '^/api/v1' : ''
+            //     },
+            // },
             '/api/v1': {
                 // target: '<url>',
-                target: 'http://39.96.221.167:8000/api/v1',
+                target: 'http://127.0.0.1:8000/api/v1',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api/v1' : ''

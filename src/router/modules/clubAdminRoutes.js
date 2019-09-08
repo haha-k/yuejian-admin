@@ -10,8 +10,7 @@ import Layout from '@/layout'
 //活动管理:/activity
 //报名管理:/participants
 
-export const clubAdminRoutes = [
-    {
+export const clubAdminRoutes = [{
         path: '/home',
         component: Layout,
         redirect: '/home/index',
@@ -35,7 +34,7 @@ export const clubAdminRoutes = [
         },
         children: [{
                 path: 'index',
-                component: () => import('@/views/clubAdminView/club'),
+                component: () => import('@/views/clubAdminView/club/index'),
                 name: 'Club',
                 meta: {
                     title: '基本信息管理',
@@ -44,8 +43,8 @@ export const clubAdminRoutes = [
             },
             {
                 path: 'video',
-                component: () => import('@/views/clubAdminView/video'),
-                name: 'video',
+                component: () => import('@/views/clubAdminView/video/index'),
+                name: 'Video',
                 meta: {
                     title: '视频管理',
                     icon: 'video'
@@ -53,7 +52,7 @@ export const clubAdminRoutes = [
             },
             {
                 path: 'course',
-                component: () => import('@/views/clubAdminView/course'),
+                component: () => import('@/views/clubAdminView/course/index'),
                 name: 'Course',
                 meta: {
                     title: '课程管理',
@@ -62,7 +61,7 @@ export const clubAdminRoutes = [
             },
             {
                 path: 'train',
-                component: () => import('@/views/clubAdminView/train'),
+                component: () => import('@/views/clubAdminView/train/index'),
                 name: 'Train',
                 meta: {
                     title: '训练管理',
@@ -71,7 +70,7 @@ export const clubAdminRoutes = [
             },
             {
                 path: 'coach',
-                component: () => import('@/views/clubAdminView/coach'),
+                component: () => import('@/views/clubAdminView/coach/index'),
                 name: 'Coach',
                 meta: {
                     title: '教练管理',
@@ -80,7 +79,7 @@ export const clubAdminRoutes = [
             },
             {
                 path: 'fans',
-                component: () => import('@/views/clubAdminView/fans'),
+                component: () => import('@/views/clubAdminView/fans/index'),
                 name: 'Fans',
                 meta: {
                     title: '粉丝管理',
@@ -88,17 +87,8 @@ export const clubAdminRoutes = [
                 },
             },
             {
-                path: 'activity',
-                component: () => import('@/views/clubAdminView/activity'),
-                name: 'Activity',
-                meta: {
-                    title: '活动管理',
-                    icon: 'activity'
-                },
-            },
-            {
                 path: 'participants',
-                component: () => import('@/views/clubAdminView/participants'),
+                component: () => import('@/views/clubAdminView/participant/index'),
                 name: 'Participants',
                 meta: {
                     title: '报名管理',
@@ -107,131 +97,5 @@ export const clubAdminRoutes = [
             },
         ]
     },
-    {
-        path: '/clubs',
-        component: Layout,
-        redirect: '/clubs/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/clubs'),
-            name: 'Clubs',
-            meta: {
-                title: '俱乐部管理',
-                icon: 'club'
-            },
-        }]
-    },  {
-        path: '/users',
-        component: Layout,
-        redirect: '/users/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/users/index'),
-            name: 'Users',
-            meta: {
-                title: '用户管理',
-                icon: 'user'
-            },
-        }]
-    },
-    {
-        path: '/videos',
-        component: Layout,
-        redirect: '/videos/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/videos'),
-            name: 'Videos',
-            meta: {
-                title: '视频管理',
-                icon: 'video'
-            },
-        }]
 
-    },
-    {
-        path: '/courses',
-        component: Layout,
-        redirect: '/courses/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/courses'),
-            name: 'Courses',
-            meta: {
-                title: '课程管理',
-                icon: 'course'
-            },
-        }]
-    },
-
-    {
-        path: '/trains',
-        component: Layout,
-        redirect: '/trains/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/trains'),
-            name: 'Trains',
-            meta: {
-                title: '训练管理',
-                icon: 'train'
-            },
-        }]
-    },
-    {
-        path: '/coaches',
-        component: Layout,
-        redirect: 'coaches/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/coaches'),
-            name: 'Coaches',
-            meta: {
-                title: '教练管理',
-                icon: 'coach'
-            },
-        }]
-    },
-    {
-        path: '/pictures',
-        component: Layout,
-        redirect: '/pictures/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/pictures/index'),
-            name: 'Picture',
-            meta: {
-                title: '图片管理',
-                icon: 'pictures'
-            },
-        }]
-    },
-    {
-        path: '/activities',
-        component: Layout,
-        redirect: '/activities/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/activities'),
-            name: 'Activities',
-            meta: {
-                title: '活动管理',
-                icon: 'activity'
-            },
-        }]
-    },
-    {
-        path: '/contests',
-        component: Layout,
-        redirect: '/contests/index',
-        children: [{
-            path: 'index',
-            component: () => import('@/views/sysAdminView/contests'),
-            name: 'Contests',
-            meta: {
-                title: '比赛管理',
-                icon: 'contest'
-            },
-        }]
-    },
 ];

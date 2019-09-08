@@ -1,6 +1,7 @@
 import {
     login,
-    getInfo
+    getInfo,
+    getUserClubs,
 } from '@/api/user'
 import {
     getToken,
@@ -15,6 +16,8 @@ const state = {
     name: '',
     info: {},
     roles: [],
+    id: 0,
+    clubs:[],
 }
 
 const mutations = {
@@ -33,11 +36,22 @@ const mutations = {
     SET_ROLES: (state, roles) => {
         state.roles = roles
     },
+    SET_ID: (state, id) => {
+        state.id = id
+    },
+    SET_CLUBS: (state, clubs) => {
+        state.clubs = clubs
+    }
 }
 
 const actions = {
+    // set_roles({commit},roles){
+    //     commit('SET_ROLES', '')
+    // },
     //user login
-    login({commit}, userInfo) {
+    login({
+        commit
+    }, userInfo) {
         const {
             username,
             password
@@ -48,18 +62,32 @@ const actions = {
                 username: username.trim(),
                 password: password,
             }).then(response => {
-                // console.log("comming in");
-                // console.log(response)
                 const {
                     data
                 } = response;
                 commit('SET_TOKEN', data.token);
                 setToken(data.token);
                 resolve('success set token');
+
             }).catch(error => {
                 // console.log("????");
                 reject(error);
             })
+        })
+    },
+
+    getClubs({
+        commit,
+        state
+    }) {
+        return new Promise((resolve, reject) => {
+            getUserClubs(state.id).then((result) => {
+                // console.log(result.data);
+                resolve(result.data);
+            }).catch((err) => {
+                reject(err);
+            });
+
         })
     },
 
@@ -69,6 +97,7 @@ const actions = {
         state
     }) {
         return new Promise((resolve, reject) => {
+
             getInfo().then(response => {
                 const {
                     data
@@ -76,45 +105,46 @@ const actions = {
                 if (!data) {
                     reject('验证失败,请再次登录');
                 }
-
-                // console.log(data);
-
                 const {
                     // roles,
                     avatar_url,
                     username,
+                    id,
                     ...info
                 } = data;
-
                 // console.log(info);
 
-                let roles=["sysAdmin"];
+                // let a = async () => {
+                //     console.log("-----")
+                //     var x = await getClubs();
+                //     console.log(x);
+                // }
+                // a();
 
-                // console.log(roles);
+                let roles;
 
-                if (!roles || roles.length <= 0) {
-                    reject('getinfo: roles必须是非空的数组');
-                }
 
-                commit('SET_ROLES', roles);
+                // commit('SET_ROLES', roles);
                 commit('SET_NAME', username);
                 commit('SET_AVATAR', avatar_url);
                 commit('SET_INFO', info);
-                // resolve(data);
-                resolve(roles);
+                commit('SET_ID', id);
+
+                resolve(info);
             }).catch(error => {
                 reject(error);
             })
         })
     },
 
+
     //user logout
     logout({
         commit,
         state
     }) {
-        commit('SET_TOKEN','');
-        commit('SET_ROLES',[]);
+        commit('SET_TOKEN', '');
+        commit('SET_ROLES', []);
         removeToken();
     },
     resetToken({

@@ -29,7 +29,7 @@
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="profile/index">
+          <router-link to="/profile/index">
             <el-dropdown-item>个人主页</el-dropdown-item>
           </router-link>
           <!-- <a target="_blank" href="https://github.com/haha-k">

@@ -19,7 +19,7 @@ service.interceptors.request.use(config => {
     // config.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
     if (store.getters.token) {
         // console.log("/utils/request");
-        config.headers['Authorization'] = 'JWT '+getToken();
+        config.headers['Authorization'] = 'JWT ' + getToken();
     }
     // console.log(config);
     return config
@@ -35,11 +35,17 @@ service.interceptors.response.use(response => {
     },
     error => {
         console.log('err->' + error)
-        Message({
-            message: error.message,
-            type: 'error',
-            duration: 5 * 1000
-        })
+        if (error.response.status == 403) {
+            Message.error({
+                message: '您的权限不足'
+            });
+        } else {
+            Message({
+                message: error.message,
+                type: 'error',
+                duration: 5 * 1000
+            })
+        }
         return Promise.reject(error)
     })
 

@@ -3,7 +3,7 @@
     <eHeader></eHeader>
     <el-table
       size="small"
-      v-loading="listLoading"
+      v-loading="loading"
       :data="list"
       border
       stripe
@@ -37,7 +37,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" prop="last_login" label="上次登录" width="140px"></el-table-column>
-      <el-table-column align="center" label="操作" width="300px">
+      <el-table-column align="center" label="操作" >
         <template slot-scope="scope">
           <edit :data="scope.row"></edit>
           <!-- v-if="checkPermission(['admin'])" -->
@@ -53,13 +53,14 @@
         </template>
       </el-table-column>
     </el-table>
-      <!-- hide-on-single-page -->
-     <el-pagination
+    <el-pagination
       background
       :total="total"
-      :page-size="size"
-      :page-count="count"
-      :current-page="page"
+      :page-size="10"
+      :current-page.sync="page"
+      @next-click="page++"
+      @prev-click="page--"
+      @current-change="handleChange"
       style="margin-top: 8px;"
       layout="total, prev, pager, next, jumper"
     />
@@ -70,19 +71,20 @@ import eHeader from "./modules/header";
 import checkPermission from "@/utils/permission";
 import edit from "./modules/edit";
 import updatePass from "./modules/updatePass";
-
-import users from "./mock/user";
+// import users from "./mock/user";
+import { getUsers } from "@/api/user"
 
 export default {
   name: "users",
   data() {
     return {
-      list: this.getList(),
-      listLoading: false,
-      total:12,
-      size:10,
-      count:this.total/this.size,
-      page:1
+      list: {},
+      page:1,
+      total: 0,
+      filter: undefined,
+      multipleSelection: [],
+      dialogVisible:false,
+      loading: false,
     };
   },
   filters: {
@@ -101,6 +103,10 @@ export default {
   },
   methods: {
     sortChange() {},
+    handleChange() {
+      this.loading = true;
+      this.getList(this.page);
+    },
     genderFormat(row, column, cellValue, index){
       let gender = row.gender;
       if(gender===null){
@@ -110,12 +116,18 @@ export default {
       return gender===1?'男':'女';
       }
     },
-    getList() {
-      return users;
+    getList(id) {
+      getUsers(id).then(response => {
+        console.log("---------");
+        const { data } = response;
+        this.total = data.count;
+        this.list = data.results;
+        this.loading = false;
+      });
     }
   },
   mounted() {
-    console.log(users);
+    this.getList(1);
   },
   components: {
     eHeader: eHeader,
@@ -125,6 +137,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.users {
-}
 </style>

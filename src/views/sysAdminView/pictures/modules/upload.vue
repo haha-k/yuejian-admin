@@ -4,7 +4,7 @@
   class="upload-demo"
   drag
   list-type="picture"
-  action="https://jsonplaceholder.typicode.com/posts/"
+  action="https://127.0.0.1:8000/"
   multiple>
   <i class="el-icon-upload"></i>
   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -13,6 +13,7 @@
 </div>
 </template>
 <script>
+import { addPic } from "@/api/picture";
 export default {
   name: 'upload',
   data(){

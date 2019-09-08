@@ -3,7 +3,7 @@ import {clubAdminRoutes} from '@/router/modules/clubAdminRoutes'
 import {sysAdminRoutes} from '@/router/modules/sysAdminRoutes'
 
 const state = {
-    routes: clubAdminRoutes,
+    routes: undefined,
     addRoutes: []
 }
 
@@ -34,9 +34,7 @@ export function filterAsyncRoutes(routes,roles){
 
 const mutations = {
     SET_ROUTES: (state,routes)=>{
-        state.addRoutes = routes;
-        // state.routes = constantRoutes.concat(routes);
-        // state.routes = sysAdminRoutes;
+        state.routes = routes;
     }
 }
 
@@ -44,14 +42,9 @@ const actions =  {
     generateRoutes({commit},roles){
         return new Promise(resolve => {
             let accessedRoutes;
-            // if(roles.includes('sysAdmin')){
-            //     accessedRoutes = asyncRoutes || [];
-            // }else{
-            //     accessedRoutes = filterAsyncRoutes(asyncRoutes,roles);
-            // }
             if(roles.includes('sysAdmin')){
                 accessedRoutes = sysAdminRoutes || [];
-                // console.log(sysAdminRoutes);
+                console.log("hahahahhaha");
             }else{
                 accessedRoutes = clubAdminRoutes || [];
             }

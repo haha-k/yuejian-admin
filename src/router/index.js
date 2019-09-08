@@ -19,12 +19,17 @@ export const constantRoutes = [{
     },
     {
         path: '/',
-        // component: Layout,
-        component: () => import('@/layout/index'),
-        // redirect: '/home',
+        component:Layout,
+        redirect:'/home/index'
+    },
+    {
+        path: '/home',
+        component: Layout,
+        // component: () => import('@/layout/index'),
+        redirect: '/home/index',
         // hidden: true,
         children: [{
-            path: 'home',
+            path: 'index',
             component: () => import('@/views/home/index'),
             name: 'Home',
             meta: {
@@ -49,7 +54,26 @@ export const constantRoutes = [{
                 noCache: true
             }
         }]
-    }
+    },
+    {
+        path:'/redirect',
+        component:Layout,
+        hidden: true,
+        children: [{
+            path: '/redirect/:path*',
+            component:() => import('@/views/redirect/index')
+        }]
+    },
+  {
+    path: '/external-link',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        meta: { title: 'External Link', icon: 'link' }
+      }
+    ]
+  },
 
 ]
 
@@ -62,6 +86,7 @@ const createRouter = () => new Router({
     // scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
 })
+
 
 const router = createRouter()
 // export function resetRouter() {
